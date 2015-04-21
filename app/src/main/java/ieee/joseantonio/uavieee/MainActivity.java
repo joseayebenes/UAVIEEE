@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity
 
         if (mBluetoothAdapter == null) {
             FragmentActivity activity = this;
-            Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Bluetooth no disponile", Toast.LENGTH_LONG).show();
             activity.finish();
         }
     }

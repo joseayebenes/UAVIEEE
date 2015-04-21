@@ -10,7 +10,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
 
@@ -19,7 +18,7 @@
 
 
     <!--  BluetoothChat -->
-    <string name="send">Send</string>
+
     <string name="not_connected">You are not connected to a device</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
     <string name="title_connecting">connecting...</string>
@@ -27,7 +26,7 @@
     <string name="title_not_connected">not connected</string>
 
     <!--  DeviceListActivity -->
-    <string name="scanning">scanning for devices...</string>
+    <string name="scanning">Scanning for devices...</string>
     <string name="select_device">select a device to connect</string>
     <string name="none_paired">No devices have been paired</string>
     <string name="none_found">No devices found</string>
