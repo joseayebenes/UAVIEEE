@@ -3,10 +3,23 @@ package ieee.joseantonio.uavieee;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 
 /**
@@ -20,6 +33,15 @@ import android.view.ViewGroup;
 public class ConsolaFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+
+    ListView list;
+    EditText et_comando;
+    ImageButton btn_enviar;
+
+    /**
+     * Array adapter for the conversation thread
+     */
+    public ArrayAdapter<String> adapterView;
 
 
     // TODO: Rename and change types and number of parameters
@@ -35,6 +57,7 @@ public class ConsolaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -44,12 +67,63 @@ public class ConsolaFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_consola, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        list = (ListView)view.findViewById(R.id.listView);
+        btn_enviar = (ImageButton)view.findViewById(R.id.imageButton);
+        et_comando = (EditText)view.findViewById(R.id.editText);
+
+        // Initialize the array adapter for the conversation thread
+        adapterView = new ArrayAdapter<String>(getActivity(), R.layout.message);
+        list.setAdapter(adapterView);
+
+        // Initialize the compose field with a listener for the return key
+        et_comando.setOnEditorActionListener(mWriteListener);
+
+        // Initialize the send button with a listener that for click events
+        btn_enviar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Send a message using content of the edit text widget
+                View view = getView();
+                if (null != view) {
+                    String message = et_comando.getText().toString();
+                    et_comando.setText("");
+                    sendMessage(message);
+                }
+            }
+        });
+
     }
+
+    /**
+     * The action listener for the EditText widget, to listen for the return key
+     */
+    private TextView.OnEditorActionListener mWriteListener
+            = new TextView.OnEditorActionListener() {
+        public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+            // If the action is a key-up event on the return key, send the message
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String message = view.getText().toString();
+                view.setText("");
+
+                sendMessage(message);
+            }
+
+            return true;
+        }
+    };
+
+    private void sendMessage(String message) {
+        addListItem(">> "+message);
+        mListener.onFragmentInteraction(message);
+    }
+
+    public void addListItem(String str){
+        adapterView.add(str);
+    }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -80,7 +154,7 @@ public class ConsolaFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(String str);
     }
 
 }

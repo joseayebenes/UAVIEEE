@@ -18,7 +18,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/imageButton"
-        android:layout_toStartOf="@+id/imageButton" />
+        android:layout_toStartOf="@+id/imageButton"
+        android:singleLine="true" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -27,8 +28,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@android:drawable/ic_menu_send"
+        android:src="@drawable/btn_send"
         android:layout_below="@+id/listView"
         android:adjustViewBounds="false"
-        style="@style/Base.Widget.AppCompat.ActionButton" />
+        style="@style/Base.Widget.AppCompat.Button" />
 </RelativeLayout>
